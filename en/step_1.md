@@ -1,59 +1,73 @@
-## Introduction
+Go to the Inspector window for the 'Ball' and click on the **Add Component** button. 
 
-Add project description here. What will learners be making? Broadly what skills will they be learning?
+Create a new script called `BallController`.
 
-### What you will make
+Open the script and enter the code below:
 
---- no-print ---
-Add instructions for interacting with the embedded content here.
-
-<div class="scratch-preview">
-  <iframe allowtransparency="true" width="485" height="402" src="https://scratch.mit.edu/projects/embed/160619869/?autostart=false" frameborder="0"></iframe>
-</div>
---- /no-print ---
-
---- print-only ---
-![Complete project](images/showcase_static.png)
---- /print-only ---
-
---- collapse ---
+--- code ---
 ---
-title: What you will need
----
-### Hardware
-
-+ A computer or tablet capable of running Scratch 3
-
-### Software
-
-+ Scratch 3 (either [online](https://scratch.mit.edu/){:target="_blank"} or [offline](https://scratch.mit.edu/download){:target="_blank"})
-+ Python 3
-+ This project can be completed in a web browser using [trinket.io](https://trinket.io/)
-
-### Downloads
-
-+ Download the project [starter file](https://rpf.io/p/en/projectName-go){:target="_blank"} if working offline
-
---- /collapse ---
-
---- collapse ---
----
-title: What you will learn
+language: cs
+filename: BallController.cs
+line_numbers: true
+line_number_start: 1
+line_highlights: 
 ---
 
-+ Learning objective 1
-+ Learning objective 2
-+ Learning objective 3
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
---- /collapse ---
+public class BallController : MonoBehaviour
+{
+   private Rigidbody rb;
+   public Transform cameraTransform;
 
---- collapse ---
----
-title: Additional information for educators
----
+   // Start is called before the first frame update
+   void Start()
+   {
+       rb = this.GetComponent<Rigidbody>();
+       rb.transform.forward = cameraTransform.forward;
 
-You can download the completed project [here](https://rpf.io/p/en/projectName-get){:target="_blank"}.
+   }
 
-If you need to print this project, please use the [printer-friendly version](https://projects.raspberrypi.org/en/projects/projectName/print){:target="_blank"}.
+   // FixedUpdate is called once per fixed frame-rate frame
+   void FixedUpdate()
+   {  
+       // Calculates cameraTransform.forward without the y value so the ball doesn't move up and down on the Y axis
+       Vector3 forward = new Vector3(cameraTransform.forward.x, 0, cameraTransform.forward.z).normalized;
+       Vector3 right =  Quaternion.AngleAxis(90, Vector3.up) * forward;
+       Vector3 left = -right;
+       Vector3 backward = -forward;
 
---- /collapse ---
+       if (Input.GetKey("d"))
+       {
+           rb.AddForce(right * 5f);
+       }
+
+       if (Input.GetKey("a"))
+       {
+           rb.AddForce(left * 5f);
+       }
+
+       if (Input.GetKey("w"))
+       {
+          rb.AddForce(forward * 10f);
+       }
+
+       if (Input.GetKey("s"))
+       {
+          rb.AddForce(backward * 2f);
+       }
+
+       if (Input.GetKeyDown("space"))
+       {
+          rb.AddForce(0f, 75f, 0f);
+       }
+   } 
+}
+
+--- /code ---
+
+**Save** your code and return to Unity.
+
+With the 'Ball' GameObject selected in the 'Hierarchy' window. Drag the 'Main Camera' GameObject onto the `Camera Transform` variable in the 'Inspector' window inside the script.
