@@ -1,73 +1,83 @@
-Go to the Inspector window for the 'Ball' and click on the **Add Component** button. 
+Go to the Inspector window for the 'Marble' and click on the **Add Component** button, add the `BallController` script component. 
 
-Create a new script called `PlayerController`.
+--- collapse ---
 
-Open the script and enter the code below:
+---
+title: Dont have a BallController script?
+---
+
+In the **Add Component** box, press <kbd>Enter</kbd> **twice** to create a new `BallController` script.
+
+Go to the Project window. The new script will be saved in the Assets folder.
+
+Drag the new script to the 'Scripts' folder to organise your files.
+
+Open the new script in your script editor. 
 
 --- code ---
 ---
-language: cs 
-filename: PlayerController.cs 
-line_numbers: true 
-line_number_start: 1 
+language: cs
+filename: BallController.cs
+line_numbers: true
+line_number_start: 
 line_highlights: 
 ---
-
-using System.Collections; 
-using System.Collections.Generic; 
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour { 
-    public Transform cameraTransform; 
-    public string forwardKey; 
-    public string leftKey; 
-    public string backwardKey; 
-    public string rightKey; 
-    Rigidbody rb;
-
-// Start is called before the first frame update
-void Start()
+public class BallController : MonoBehaviour
 {
-    rb = this.GetComponent<Rigidbody>();
-    rb.transform.forward = cameraTransform.forward;
+    private Rigidbody rb;
+    public Transform cameraTransform;
+    public string upKey;
+    public string leftKey;
+    public string downKey;
+    public string rightKey;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+        rb.transform.forward = cameraTransform.forward;
+    }
+
+    // FixedUpdate is called once per frame
+    void FixedUpdate()
+    {
+        Vector3 forward = new Vector3(cameraTransform.forward.x, 0, cameraTransform.forward.z).normalized;
+        Vector3 right = Quaternion.AngleAxis(90, Vector3.up) * forward;
+        Vector3 left = -right;
+        Vector3 backward = -forward;
+
+        if (Input.GetKey(rightKey))
+        {
+            rb.AddForce(right * 5f);
+        }
+
+        if (Input.GetKey(leftKey))
+        {
+            rb.AddForce(left * 5f);
+        }
+
+        if (Input.GetKey(upKey))
+        {
+            rb.AddForce(forward * 10f);
+        }
+
+        if (Input.GetKey(downKey))
+        {
+            rb.AddForce(backward * 2f);
+        }
+    }
 }
-
-// FixedUpdate is called once per fixed frame-rate frame
-void FixedUpdate()
-{
-    // Calculates cameraTransform.forward without the y value so the ball doesn't move up and down on the Y axis
-    Vector3 forward = new Vector3(cameraTransform.forward.x, 0, cameraTransform.forward.z).normalized;
-    Vector3 right = Quaternion.AngleAxis(90, Vector3.up) * forward;
-    Vector3 left = -right;
-    Vector3 backward = -forward;
-
-    if (Input.GetKey(forwardKey))
-    {
-        rb.AddForce(forward * 5f);
-    }
-
-    if (Input.GetKey(rightKey))
-    {
-        rb.AddForce(right * 5f);
-    }
-
-    if (Input.GetKey(backwardKey))
-    {
-        rb.AddForce(backward * 5f);
-    }
-
-    if (Input.GetKey(leftKey))
-    {
-        rb.AddForce(left * 5f);
-    }
-}
-}
-
 --- /code ---
 
 **Save** your code and return to Unity.
 
-+ Select the 'Player1' GameObject to view the 'Inspector' options.
+--- /collapse ---
+
++ Select the Sphere GameObject to view the 'Inspector' options.
 
 + Drag the 'Main Camera' game object to the 'Camera Transform' variable in the 'Inspector'. 
 
