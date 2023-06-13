@@ -1,16 +1,16 @@
-Go to the Inspector window for the 'Marble' and click on the **Add Component** button, add the `BallController` script component. 
+Go to the Inspector window for the sphere and click on the **Add Component** button. Add the `BallController` script component. 
 
 --- collapse ---
 
 ---
-title: Dont have a BallController script?
+title: Don't have a BallController script?
 ---
 
 In the **Add Component** box, press <kbd>Enter</kbd> **twice** to create a new `BallController` script.
 
 Go to the Project window. The new script will be saved in the Assets folder.
 
-Drag the new script to the 'Scripts' folder to organise your files.
+Drag the new script to the Scripts folder to organise your files.
 
 Open the new script in your script editor. 
 
@@ -79,10 +79,10 @@ public class BallController : MonoBehaviour
 
 + Select the Sphere GameObject to view the 'Inspector' options.
 
-+ Drag the 'Main Camera' game object to the 'Camera Transform' variable in the 'Inspector'. 
++ Drag the 'Main Camera' GameObject to the 'Camera Transform' variable in the Inspector. 
 
-+ Set the 'Forward Key', 'Left Key', 'Backward Key', and 'Right Key' to the lowercase letters that you want to use to control Player1. We used 'w', 'a', 's' and 'd'.
++ Set the 'Forward Key', 'Left Key', 'Backward Key', and 'Right Key' to the lower case letters that you want to use to control Player1. We used 'w', 'a', 's' and 'd'.
 
-![The inspector for Player1 showing the PlayerController script with Camera Transform set to Main Camera and four key variables set to lowercase w, a, s and d.](images/player1-settings.png)
+![The inspector for Player1 showing the PlayerController script with Camera Transform set to Main Camera and four key variables set to lower case w, a, s and d.](images/player1-settings.png)
 
 **Tip:** The letters for the keys need to be in lower case. 
